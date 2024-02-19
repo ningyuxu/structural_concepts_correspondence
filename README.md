@@ -2,7 +2,6 @@
 
 This repository contains code for the Paper *Are Structural Concepts Universal in Transformer Language Models? Towards Interpretable Cross-Lingual Generalization* (Findings of EMNLP 2023). 
 
-We are currently refactoring our code, and the repository will soon be updated.
 
 ## Data
 
