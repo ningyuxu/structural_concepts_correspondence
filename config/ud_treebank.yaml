@@ -1,0 +1,163 @@
+name: "ud_treebank_v2.10"
+description: "Universal Dependencies Treebank corpus"
+
+comment_symbol: "#"
+
+url: "https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11234/1-4758/ud-treebanks-v2.10.tgz"
+corpus_file: "ud_treebank_v2.10.tgz"
+corpus_path: "ud_treebank_v2.10"
+
+keys: [ "lang", "genre", "split", "seqid" ]
+fields: [ "id", "form", "lemma", "upos", "xpos", "feat", "head", "deprel", "dep", "misc" ]
+
+langs: {
+  "af": "afrikaans",
+  "ar": "arabic",             # Semitic, Afro-Asiatic
+  "be": "belarusian",
+  "hy": "armenian",
+  "eu": "basque",
+  "bg": "bulgarian",          # Slavic, Indo-European
+  "ca": "catalan",            # Romance, Indo-European
+  "zh": "chinese",
+  "cs": "czech",              # Slavic, Indo-European
+  "da": "danish",
+  "nl": "dutch",              # Germanic, Indo-European
+  "en": "english",            # Germanic, Indo-European
+  "et": "estonian",           # Finnic, Uralic
+  "fi": "finnish",            # Finnic, Uralic
+  "fr": "french",             # Romance, Indo-European
+  "de": "german",             # Germanic, Indo-European
+  "el": "greek",              # Greek, Indo-European
+  "he": "hebrew",             # Semitic, Afro-Asiatic
+  "hi": "hindi",              # Indic, Indo-European
+  "hu": "hungarian",          # Ugric, Uralic
+  "is": "icelandic",
+  "id": "indonesian",
+  "ga": "irish",
+  "it": "italian",            # Romance, Indo-European
+  "ja": "japanese",           # Japanese, Japanese
+  "ko": "korean",             # Korean, Korean
+  "lt": "lithuanian",
+  "lv": "latvian",            # Baltic, Indo-European
+  "mr": "marathi",
+  "no": "norwegian",
+  "fa": "persian",            # Iranian, Indo-European
+  "pl": "polish",             # Slavic, Indo-European
+  "pt": "portuguese",         # Romance, Indo-European
+  "ro": "romanian",           # Romance, Indo-European
+  "ru": "russian",            # Slavic, Indo-European
+  "sr": "serbian",
+  "sk": "slovak",
+  "sl": "slovenian",
+  "es": "spanish",            # Romance, Indo-European
+  "sv": "swedish",
+  "ta": "tamil",              # Southern Dravidian, Dravidian
+  "te": "telugu",             # low-resource
+  "tl": "tagalog",
+  "tr": "turkish",            # Turkic, Altaic
+  "uk": "ukrainian",
+  "ur": "urdu",               # Indic, Indo-European
+  "vi": "vietnamese",         # Viet-Muong, Austro-Asiatic
+  "cy": "welsh",
+  "koi": "komi_permyak",
+  "kpv": "komi_zyrian",
+  "kmr": "kurmanji",
+  "akk": "akkadian",
+  "am": "amharic",
+  "aii": "assyrian",
+  "bm": "bambara",
+  "bho": "bhojpuri",
+  "br": "breton",
+  "bxr": "buryat",
+  "yue": "cantonese",
+  "myv": "erzya",
+  "fo": "faroese",
+  "krl": "karelian",
+  "kk": "kazakh",
+  "olo": "livvi",
+  "gun": "mbya_guarani",
+  "mdf": "moksha",
+  "pcm": "naija",
+  "sa": "sanskrit",
+  "gsw": "swiss_german",
+  "hsb": "upper_sorbian",
+  "wbp": "warlpiri",
+  "yo": "yoruba",
+  "hr": "croatian",
+}
+
+genres: {
+  "af": [ "afribooms" ],
+  "ar": [ "nyuad", "padt", "pud" ],
+  "hy": [ "armtdp", "bsut" ],
+  "eu": [ "bdt" ],
+  "bg": [ "btb" ],
+  "ca": [ "ancora" ],
+  "da": [ "ddt" ],
+  "zh": [ "cfl", "gsd", "gsdsimp", "hk", "pud" ],
+  "cs": [ "cac", "cltt", "fictree", "pdt", "pud" ],
+  "nl": [ "alpino", "lassysmall" ],
+  "en": [ "atis", "esl", "ewt", "gum", "gumreddit", "lines", "partut", "pronouns", "pud" ],
+  "et": [ "edt", "ewt" ],
+  "fi": [ "ftb", "ood", "pud", "tdt" ],
+  "fr": [ "fqb", "ftb", "gsd", "parisstories", "partut", "pud", "rhapsodie", "sequoia" ],
+  "de": [ "gsd", "hdt", "lit", "pud" ],
+  "el": [ "gdt" ],
+  "he": [ "htb" ],
+  "hi": [ "hdtb", "pud" ],
+  "hu": [ "szeged" ],
+  "is": [ "icepahc", "modern", "pub" ],
+  "id": [ "csui", "gsd", "pud" ],
+  "ga": [ "idt", "twittirish" ],
+  "it": [ "isdt", "partut", "postwita", "pud", "twittiro", "valico", "vit" ],
+  "ja": [ "bccwj", "bccwjluw", "gsd", "gsdluw", "modern", "pud", "pudluw" ],
+  "ko": [ "gsd", "kaist", "pud" ],
+  "lt": [ "alksnis", "hse" ],
+  "lv": [ "lvtb" ],
+  "mr": [ "ufal" ],
+  "no": [ "bokmaal", "nynorsk", "nynorsklia" ],
+  "fa": [ "perdt", "seraji" ],
+  "pl": [ "lfg", "pdb", "pud" ],
+  "pt": [ "bosque", "gsd", "pud" ],
+  "ro": [ "art", "nonstandard", "rrt", "simonero" ],
+  "ru": [ "gsd", "pud", "syntagrus", "taiga" ],
+  "sr": [ "set" ],
+  "sk": [ "snk" ],
+  "sl": [ "ssj", "sst" ],
+  "es": [ "ancora", "gsd", "pud" ],
+  "sv": [ "lines", "pud", "talbanken", "sign_language-sslc"],
+  "ta": [ "mwtt", "ttb" ],
+  "te": [ "mtg" ],
+  "tr": [ "atis", "boun", "framenet", "gb", "imst", "kenet", "penn", "pud", "tourism" ],
+  "uk": [ "iu" ],
+  "ur": [ "udtb" ],
+  "vi": [ "vtb" ],
+  "cy": [ "ccg" ],
+  "be": [ "hse" ],
+  "tl": [ "trg" ],
+  "koi": [ "uh" ],
+  "kpv": [ "lattice" ],
+  "kmr": [ "mg" ],
+  "akk": [ "pisandub" ],
+  "am": [ "att" ],
+  "aii": [ "as" ],
+  "bm": [ "crb" ],
+  "bho": [ "bhtb" ],
+  "br": [ "keb" ],
+  "bxr": [ "bdt" ],
+  "yue": [ "hk" ],
+  "myv": [ "jr" ],
+  "fo": [ "oft" ],
+  "krl": [ "kkpp" ],
+  "kk": [ "ktb" ],
+  "olo": [ "kkpp" ],
+  "gun": [ "thomas", "dooley" ],
+  "mdf": [ "jr" ],
+  "pcm": [ "nsc" ],
+  "sa": [ "ufal" ],
+  "gsw": [ "uzh" ],
+  "hsb": [ "ufal" ],
+  "wbp": [ "ufal" ],
+  "yo": [ "ytb" ],
+  "hr": [ "set" ]
+}

@@ -1,0 +1,286 @@
+name: "ud_treebank_v2.10"
+description: "Universal Dependencies Treebank corpus"
+
+comment_symbol: "#"
+
+url: "https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11234/1-4758/ud-treebanks-v2.10.tgz"
+corpus_file: "ud_treebank_v2.10.tgz"
+corpus_path: "ud_treebank_v2.10"
+
+keys: [ "lang", "genre", "split", "seqid" ]
+fields: [ "sid", "forms", "upos_ids", "heads", "deprel_ids", "embeddings" ]
+
+langs: {
+  "af": "afrikaans",
+  "ar": "arabic",             # Semitic, Afro-Asiatic
+  "hy": "armenian",
+  "eu": "basque",
+  "bg": "bulgarian",          # Slavic, Indo-European
+  "ca": "catalan",            # Romance, Indo-European
+  "zh": "chinese",
+  "cs": "czech",              # Slavic, Indo-European
+  "nl": "dutch",              # Germanic, Indo-European
+  "en": "english",            # Germanic, Indo-European
+  "et": "estonian",           # Finnic, Uralic
+  "fi": "finnish",            # Finnic, Uralic
+  "fr": "french",             # Romance, Indo-European
+  "de": "german",             # Germanic, Indo-European
+  "el": "greek",              # Greek, Indo-European
+  "he": "hebrew",             # Semitic, Afro-Asiatic
+  "hi": "hindi",              # Indic, Indo-European
+  "hu": "hungarian",          # Ugric, Uralic
+  "is": "icelandic",
+  "id": "indonesian",
+  "ga": "irish",
+  "it": "italian",            # Romance, Indo-European
+  "ja": "japanese",           # Japanese, Japanese
+  "ko": "korean",             # Korean, Korean
+  "lt": "lithuanian",
+  "lv": "latvian",            # Baltic, Indo-European
+  "mr": "marathi",
+  "no": "norwegian",
+  "fa": "persian",            # Iranian, Indo-European
+  "pl": "polish",             # Slavic, Indo-European
+  "pt": "portuguese",         # Romance, Indo-European
+  "ro": "romanian",           # Romance, Indo-European
+  "ru": "russian",            # Slavic, Indo-European
+  "sr": "serbian",
+  "sk": "slovak",
+  "es": "spanish",            # Romance, Indo-European
+  "sv": "swedish",
+  "ta": "tamil",              # Southern Dravidian, Dravidian
+  "te": "telugu",             # low-resource
+  "tr": "turkish",            # Turkic, Altaic
+  "uk": "ukrainian",
+  "ur": "urdu",               # Indic, Indo-European
+  "vi": "vietnamese",         # Viet-Muong, Austro-Asiatic
+  "cy": "welsh",
+}
+
+genres: {
+  "af": [ "afribooms" ],
+  "ar": [ "nyuad", "padt", "pud" ],
+  "hy": [ "armtdp", "bsut" ],
+  "eu": [ "bdt" ],
+  "bg": [ "btb" ],
+  "ca": [ "ancora" ],
+  "zh": [ "cfl", "gsd", "gsdsimp", "hk", "pud" ],
+  "cs": [ "cac", "cltt", "fictree", "pdt", "pud" ],
+  "nl": [ "alpino", "lassysmall" ],
+  "en": [ "atis", "esl", "ewt", "gum", "gumreddit", "lines", "partut", "pronouns", "pud" ],
+  "et": [ "edt", "ewt" ],
+  "fi": [ "ftb", "ood", "pud", "tdt" ],
+  "fr": [ "fqb", "ftb", "gsd", "parisstories", "partut", "pud", "rhapsodie", "sequoia" ],
+  "de": [ "gsd", "hdt", "lit", "pud" ],
+  "el": [ "gdt" ],
+  "he": [ "htb" ],
+  "hi": [ "hdtb", "pud" ],
+  "hu": [ "szeged" ],
+  "is": [ "icepahc", "modern", "pub" ],
+  "id": [ "csui", "gsd", "pud" ],
+  "ga": [ "idt", "twittirish" ],
+  "it": [ "isdt", "partut", "postwita", "pud", "twittiro", "valico", "vit" ],
+  "ja": [ "bccwj", "bccwjluw", "gsd", "gsdluw", "modern", "pud", "pudluw" ],
+  "ko": [ "gsd", "kaist", "pud" ],
+  "lt": [ "alksnis", "hse" ],
+  "lv": [ "lvtb" ],
+  "mr": [ "ufal" ],
+  "no": [ "bokmaal", "nynorsk", "nynorsklia" ],
+  "fa": [ "perdt", "seraji" ],
+  "pl": [ "lfg", "pdb", "pud" ],
+  "pt": [ "bosque", "gsd", "pud" ],
+  "ro": [ "art", "nonstandard", "rrt", "simonero" ],
+  "ru": [ "gsd", "pud", "syntagrus", "taiga" ],
+  "sr": [ "set" ],
+  "sk": [ "snk" ],
+  "es": [ "ancora", "gsd", "pud" ],
+  "sv": [ "lines", "pud", "talbanken", "sign_language-sslc"],
+  "ta": [ "mwtt", "ttb" ],
+  "te": [ "mtg" ],
+  "tr": [ "atis", "boun", "framenet", "gb", "imst", "kenet", "penn", "pud", "tourism" ],
+  "uk": [ "iu" ],
+  "ur": [ "udtb" ],
+  "vi": [ "vtb" ],
+  "cy": [ "ccg" ],
+}
+
+pythia_70m: &pythia_70m
+  {name: "EleutherAI/pythia-70m-deduped", max_seq_len: 2048}
+pythia_160m: &pythia_160m
+  {name: "EleutherAI/pythia-160m-deduped", max_seq_len: 2048}
+pythia_410m: &pythia_410m
+  {name: "EleutherAI/pythia-410m-deduped", max_seq_len: 2048}
+pythia_1b: &pythia_1b
+  {name: "EleutherAI/pythia-1b-deduped", max_seq_len: 2048}
+pythia_1.4b: &pythia_14b
+  {name: "EleutherAI/pythia-1.4b-deduped", max_seq_len: 2048}
+pythia_2.8b: &pythia_28b
+  {name: "EleutherAI/pythia-2.8b-deduped", max_seq_len: 2048}
+pythia_6.9b: &pythia_69b
+  {name: "EleutherAI/pythia-6.9b-deduped", max_seq_len: 2048}
+carper_2.8b: &carper_28b
+  {name: "CarperAI/pythia-2.8b-deduped-4k", max_seq_len: 4096}
+carper_6.9b: &carper_69b
+  {name: "CarperAI/pythia-6.9b-deduped-4k", max_seq_len: 4096}
+llama_7b: &llama_7b
+  {name: "decapoda-research/llama-7b-hf", max_seq_len: 2048}
+mpt_7b: &mpt_7b
+  {name: "mosaicml/mpt-7b", max_seq_len: 8192}
+
+corpus_train_bg: &train_bg {lang: "bg", genre: "BTB", split: "train"}
+corpus_train_ca: &train_ca {lang: "ca", genre: "AnCora", split: "train"}
+corpus_train_da: &train_da {lang: "da", genre: "DDT", split: "train"}
+corpus_train_de: &train_de {lang: "de", genre: "GSD", split: "train"}
+corpus_train_en: &train_en {lang: "en", genre: "EWT", split: "train"}
+corpus_train_es: &train_es {lang: "es", genre: "GSD", split: "train"}
+corpus_train_fr: &train_fr {lang: "fr", genre: "GSD", split: "train"}
+corpus_train_hr: &train_hr {lang: "hr", genre: "SET", split: "train"}
+corpus_train_hu: &train_hu {lang: "hu", genre: "Szeged", split: "train"}
+corpus_train_it: &train_it {lang: "it", genre: "ISDT", split: "train"}
+corpus_train_nl: &train_nl {lang: "nl", genre: "Alpino", split: "train"}
+corpus_train_pl: &train_pl {lang: "pl", genre: "PDB", split: "train"}
+corpus_train_pt: &train_pt {lang: "pt", genre: "GSD", split: "train"}
+corpus_train_ro: &train_ro {lang: "ro", genre: "RRT", split: "train"}
+corpus_train_ru: &train_ru {lang: "ru", genre: "GSD", split: "train"}
+corpus_train_sl: &train_sl {lang: "sl", genre: "SSJ", split: "train"}
+corpus_train_sr: &train_sr {lang: "sr", genre: "SET", split: "train"}
+corpus_train_sv: &train_sv {lang: "sv", genre: "Talbanken", split: "train"}
+corpus_train_uk: &train_uk {lang: "uk", genre: "IU", split: "train"}
+corpus_train_zh: &train_zh {lang: "zh", genre: "GSDSimp", split: "train"}
+
+corpus_dev_bg: &dev_bg {lang: "bg", genre: "BTB", split: "dev"}
+corpus_dev_ca: &dev_ca {lang: "ca", genre: "AnCora", split: "dev"}
+corpus_dev_da: &dev_da {lang: "da", genre: "DDT", split: "dev"}
+corpus_dev_de: &dev_de {lang: "de", genre: "GSD", split: "dev"}
+corpus_dev_en: &dev_en {lang: "en", genre: "EWT", split: "dev"}
+corpus_dev_es: &dev_es {lang: "es", genre: "GSD", split: "dev"}
+corpus_dev_fr: &dev_fr {lang: "fr", genre: "GSD", split: "dev"}
+corpus_dev_hr: &dev_hr {lang: "hr", genre: "SET", split: "dev"}
+corpus_dev_hu: &dev_hu {lang: "hu", genre: "Szeged", split: "dev"}
+corpus_dev_it: &dev_it {lang: "it", genre: "ISDT", split: "dev"}
+corpus_dev_nl: &dev_nl {lang: "nl", genre: "Alpino", split: "dev"}
+corpus_dev_pl: &dev_pl {lang: "pl", genre: "PDB", split: "dev"}
+corpus_dev_pt: &dev_pt {lang: "pt", genre: "GSD", split: "dev"}
+corpus_dev_ro: &dev_ro {lang: "ro", genre: "RRT", split: "dev"}
+corpus_dev_ru: &dev_ru {lang: "ru", genre: "GSD", split: "dev"}
+corpus_dev_sl: &dev_sl {lang: "sl", genre: "SSJ", split: "dev"}
+corpus_dev_sr: &dev_sr {lang: "sr", genre: "SET", split: "dev"}
+corpus_dev_sv: &dev_sv {lang: "sv", genre: "Talbanken", split: "dev"}
+corpus_dev_uk: &dev_uk {lang: "uk", genre: "IU", split: "dev"}
+corpus_dev_zh: &dev_zh {lang: "zh", genre: "GSDSimp", split: "dev"}
+
+corpus_test_bg: &test_bg {lang: "bg", genre: "BTB", split: "test"}
+corpus_test_ca: &test_ca {lang: "ca", genre: "AnCora", split: "test"}
+corpus_test_da: &test_da {lang: "da", genre: "DDT", split: "test"}
+corpus_test_de: &test_de {lang: "de", genre: "GSD", split: "test"}
+corpus_test_en: &test_en {lang: "en", genre: "EWT", split: "test"}
+corpus_test_es: &test_es {lang: "es", genre: "GSD", split: "test"}
+corpus_test_fr: &test_fr {lang: "fr", genre: "GSD", split: "test"}
+corpus_test_hr: &test_hr {lang: "hr", genre: "SET", split: "test"}
+corpus_test_hu: &test_hu {lang: "hu", genre: "Szeged", split: "test"}
+corpus_test_it: &test_it {lang: "it", genre: "ISDT", split: "test"}
+corpus_test_nl: &test_nl {lang: "nl", genre: "Alpino", split: "test"}
+corpus_test_pl: &test_pl {lang: "pl", genre: "PDB", split: "test"}
+corpus_test_pt: &test_pt {lang: "pt", genre: "GSD", split: "test"}
+corpus_test_ro: &test_ro {lang: "ro", genre: "RRT", split: "test"}
+corpus_test_ru: &test_ru {lang: "ru", genre: "GSD", split: "test"}
+corpus_test_sl: &test_sl {lang: "sl", genre: "SSJ", split: "test"}
+corpus_test_sr: &test_sr {lang: "sr", genre: "SET", split: "test"}
+corpus_test_sv: &test_sv {lang: "sv", genre: "Talbanken", split: "test"}
+corpus_test_uk: &test_uk {lang: "uk", genre: "IU", split: "test"}
+corpus_test_zh: &test_zh {lang: "zh", genre: "GSDSimp", split: "test"}
+
+model: *llama_7b
+
+corpora: {
+  "bg_train": *train_bg,
+  "bg_dev": *dev_bg,
+  "bg_test": *test_bg,
+
+  "ca_train": *train_ca,
+  "ca_dev": *dev_ca,
+  "ca_test": *test_ca,
+
+  "da_train": *train_da,
+  "da_dev": *dev_da,
+  "da_test": *test_da,
+
+  "de_train": *train_de,
+  "de_dev": *dev_de,
+  "de_test": *test_de,
+
+  "en_train": *train_en,
+  "en_dev": *dev_en,
+  "en_test": *test_en,
+
+  "es_train": *train_es,
+  "es_dev": *dev_es,
+  "es_test": *test_es,
+
+  "fr_train": *train_fr,
+  "fr_dev": *dev_fr,
+  "fr_test": *test_fr,
+
+  "hr_train": *train_hr,
+  "hr_dev": *dev_hr,
+  "hr_test": *test_hr,
+
+  "hu_train": *train_hu,
+  "hu_dev": *dev_hu,
+  "hu_test": *test_hu,
+
+  "it_train": *train_it,
+  "it_dev": *dev_it,
+  "it_test": *test_it,
+
+  "nl_train": *train_nl,
+  "nl_dev": *dev_nl,
+  "nl_test": *test_nl,
+
+  "pl_train": *train_pl,
+  "pl_dev": *dev_pl,
+  "pl_test": *test_pl,
+
+  "pt_train": *train_pt,
+  "pt_dev": *dev_pt,
+  "pt_test": *test_pt,
+
+  "ro_train": *train_ro,
+  "ro_dev": *dev_ro,
+  "ro_test": *test_ro,
+
+  "ru_train": *train_ru,
+  "ru_dev": *dev_ru,
+  "ru_test": *test_ru,
+
+  "sl_train": *train_sl,
+  "sl_dev": *dev_sl,
+  "sl_test": *test_sl,
+
+  "sr_train": *train_sr,
+  "sr_dev": *dev_sr,
+  "sr_test": *test_sr,
+
+  "sv_train": *train_sv,
+  "sv_dev": *dev_sv,
+  "sv_test": *test_sv,
+
+  "uk_train": *train_uk,
+  "uk_dev": *dev_uk,
+  "uk_test": *test_uk,
+
+  "zh_train": *train_zh,
+  "zh_dev": *dev_zh,
+  "zh_test": *test_zh,
+}
+  # - *train_en
+  # - *dev_en
+  # - *test_en
+  # - *train_fr
+  # - *dev_fr
+  # - *test_fr
+  # - *train_pl
+  # - *dev_pl
+  # - *test_pl
+
+embed_rel: "diff"

@@ -1,0 +1,319 @@
+experiment:
+  description: "To finetune pretrained mBERT on UD Treebanks corpus for Dependency Parsing header."
+
+data_root: "data"
+corpus_path: "corpus"
+cache_path: "cache"
+model_root: "model"
+tokenizer_root: "tokenizer"
+output_root: "output"
+checkpoint_path: "checkpoint"
+log_path: "log"
+tensorboard_path: "tensorboard"
+
+pad_head_id: -1
+pad_label_id: -1
+
+corpus:
+  basic_config: "./config/ud_treebank.yaml"
+  upos_values: &upos_values [
+    "ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN",
+    "PUNCT", "SCONJ", "SYM", "VERB", "X"
+  ]
+  deprel_values: &deprel_values [
+    "acl", "advcl", "advmod", "amod", "appos", "aux", "case", "cc", "ccomp", "clf", "compound",
+    "conj", "cop", "csubj", "dep", "det", "discourse", "dislocated", "expl", "fixed", "flat", "goeswith",
+    "iobj", "list", "mark", "nmod", "nsubj", "nummod", "obj", "obl", "orphan", "parataxis", "punct",
+    "reparandum", "root", "vocative", "xcomp"
+  ]
+
+data_producer:
+  name: "ud_mbert_dp"
+  encoder:
+    name: "multilingual_bert"
+  task:
+    name: "dependency_parsing"
+  corpus_fields: [ "lang", "genre", "split", "seqid", "form", "upos", "head", "deprel" ]
+  tokenizer:
+    name: "huggingface/bert-base-multilingual-cased"
+  mapping:
+    fields: [ "lang", "genre", "split", "seqid", "words", "postags", "heads", "deprels" ]
+  filter:
+    max_len: 128
+    max_len_unit: "word"  # "word" or "subword"
+  processor:
+    upos_values: *upos_values
+    deprel_values: *deprel_values
+    fields: [
+      "lang", "genre", "split", "seqid", "tokens", "length", "token_ids", "attention_mask", "token_type_ids",
+      "postag_ids", "head_ids", "deprel_ids",  # "distances", "deprel_matrix"
+    ]
+
+source_langs:
+  fields: &ud_fields [ "lang", "genre", "split", "seqid", "form", "upos", "head", "deprel" ]
+  criteria:
+    langs:  [
+      "af", "ar", "bg", "ca", "cy", "de", "el", "en", "es", "et", "eu", "fa", "fi", "fr", "ga", "he", "hi", "hu", "hy",
+      "id", "is", "it", "ja", "ko", "lt", "lv", "mr", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sr", "sv", "ta", "te",
+      "tr", "uk", "ur", "vi", "zh", "da", "cs", "sl", "be", "tl", "koi", "kpv", "kmr", "akk", "am", "aii", "bm", "bho",
+      "br", "bxr", "yue", "myv", "fo", "krl", "kk", "olo", "gun", "mdf", "pcm", "sa", "gsw", "hsb", "wbp", "yo",
+    ]
+    genres: &genres {
+      "af": [ "afribooms" ],
+      "ar": [ "padt" ],
+      "be": [ "hse" ],
+      "bg": [ "btb" ],
+      "ca": [ "ancora" ],
+      "cs": [ "pdt" ],
+      "cy": [ "ccg" ],
+      "de": [ "gsd" ],
+      "da": [ "ddt" ],
+      "el": [ "gdt" ],
+      "en": [ "ewt" ],
+      "es": [ "gsd" ],
+      "et": [ "edt" ],
+      "eu": [ "bdt" ],
+      "fa": [ "perdt" ],
+      "fi": [ "tdt" ],
+      "fr": [ "gsd" ],
+      "ga": [ "idt" ],
+      "he": [ "htb" ],
+      "hi": [ "hdtb" ],
+      "hu": [ "szeged" ],
+      "hy": [ "armtdp" ],
+      "id": [ "gsd" ],
+      "is": [ "modern" ],
+      "it": [ "isdt" ],
+      "ja": [ "gsd" ],
+      "ko": [ "kaist" ],
+      "lt": [ "alksnis" ],
+      "lv": [ "lvtb" ],
+      "mr": [ "ufal" ],
+      "nl": [ "alpino" ],
+      "no": [ "nynorsk" ],
+      "pl": [ "pdb" ],
+      "pt": [ "gsd" ],
+      "ro": [ "rrt" ],
+      "ru": [ "gsd" ],
+      "sk": [ "snk" ],
+      "sl": [ "ssj" ],
+      "sr": [ "set" ],
+      "sv": [ "talbanken" ],
+      "ta": [ "ttb" ],
+      "te": [ "mtg" ],
+      "tl": [ "trg" ],
+      "tr": [ "boun" ],
+      "uk": [ "iu" ],
+      "ur": [ "udtb" ],
+      "vi": [ "vtb" ],
+      "zh": [ "gsdsimp" ],
+      "koi": [ "uh" ],
+      "kpv": [ "lattice" ],
+      "kmr": [ "mg" ],
+      "akk": [ "pisandub" ],
+      "am": [ "att" ],
+      "aii": [ "as" ],
+      "bm": [ "crb" ],
+      "bho": [ "bhtb" ],
+      "br": [ "keb" ],
+      "bxr": [ "bdt" ],
+      "yue": [ "hk" ],
+      "myv": [ "jr" ],
+      "fo": [ "oft" ],
+      "krl": [ "kkpp" ],
+      "kk": [ "ktb" ],
+      "olo": [ "kkpp" ],
+      "gun": [ "thomas", "dooley" ],
+      "mdf": [ "jr" ],
+      "pcm": [ "nsc" ],
+      "sa": [ "ufal" ],
+      "gsw": [ "uzh" ],
+      "hsb": [ "ufal" ],
+      "wbp": [ "ufal" ],
+      "yo": [ "ytb" ],
+    }
+
+probe_langs:
+  fields: *ud_fields
+  criteria:
+    langs: [
+      "af", "ar", "bg", "ca", "cy", "de", "el", "en", "es", "et", "eu", "fa", "fi", "fr", "ga", "he", "hi", "hu", "hy",
+      "id", "is", "it", "ja", "ko", "lt", "lv", "mr", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sr", "sv", "ta", "te",
+      "tr", "uk", "ur", "vi", "zh",
+    ]
+    genres: *genres
+
+target_langs:
+  fields: *ud_fields
+  criteria:
+    langs:  [
+      "af", "cy", "el", "eu", "ga", "hu", "hy", "ko", "lt", "mr", "sr", "ta", "te", "tr",
+      "ur", "vi", "zh"
+    ]
+    genres: *genres
+
+val_langs:
+  fields: *ud_fields
+  criteria:
+    langs: [
+      "ar", "bg", "ca", "de", "en", "es", "et", "fa", "fi", "fr", "he", "hi",
+      "ja", "lv", "nl", "no", "pt", "ro", "ru", "sk", "tr", "zh"
+    ]
+    genres: *genres
+
+
+model:
+  name: "Multilingual BERT for Syntax Aligning"
+
+  tokenizer: &tokenizer
+    name: "huggingface/bert-base-multilingual-cased"
+  pretrained_model: &pretrained_model
+    name: "huggingface/bert-base-multilingual-cased"
+    freeze_layer: 12
+
+  encoder:
+    name: "mbert_with_lata"
+    tokenizer: *tokenizer
+    pretrained_model: *pretrained_model
+    embedding:
+      layer: &layer 7
+      fields: [
+        "lang", "genre", "split", "seqid", "tokens", "length", "token_ids", "attention_mask", "token_type_ids",
+        "postag_ids", "head_ids", "deprel_ids", # "distances", "deprel_matrix", "embedding"
+      ]
+
+  task:
+    name: "dependency_parsing"
+    parser_module:
+      name: "dependency_parsing"
+      upos_values: *upos_values
+      deprel_values: *deprel_values
+      embedding_dim: 768
+      parser_pos_dim: 100
+      parser_rel_dim: 128
+      parser_arc_dim: 512
+      parser_use_pos: False
+      parser_predict_pos: False
+      parser_use_predict_pos: False
+      parser_dropout: 0.33
+      parser_predict_rel_label: True
+      ignore_pos_punct: False
+
+    probe_module:
+      name: "probe"
+      task: &task "rel"
+      upos_values: *upos_values
+      deprel_values: *deprel_values
+      n_x: 768
+      proj_dim: &proj_dim 64   # 1, 2, 4, 8, 16, 32, 64, 128, 256
+      dist: &dist "euclidean"  # "mahalanobis" or "euclidean"
+
+    proto_module:
+      task: *task
+      name: "ls_ada_proto"
+      num_datasets: 43
+      n_x: 768
+      hid_dim: 384
+      proj_dim: *proj_dim  # 1, 2, 4, 8, 16, 32, 64, 128, 256
+      dropout: 0.33
+      bias: True
+      dist: *dist  # "mahalanobis" or "euclidean"
+      adaptor_beta: 0.0
+
+
+trainer:
+  name: "dependency_parsing"
+  dist: false
+  launcher: "pytorch"
+
+  objective: "meta-fs-rel-proj64"
+  train_encoder: false
+  load_best_for_align: true
+
+  task: *task
+  ns: 100
+  nq: 50  # 50
+  dataset_per_lang: 100  # 100
+  eval_dataset_per_lang: 20
+  smooth: True
+  iter_num: 5
+  threshold: 10
+
+  predict_mode: "pretrain"
+  layer_index: *layer
+
+  # output
+  log_to_file: true
+  train_log_file: "train.log"
+  log_loss: true
+  loss_log_file: "loss.log"
+  log_k_times: 10
+  use_tensorboard: false
+  metrics_for_tensorboard: []
+  save_optimizer_state: false
+  save_model_each_k_epochs: 0
+  checkpoint: false
+  save_final_model: true
+
+  # batch size
+  mini_batch_size: 8
+  eval_batch_size: 8
+
+  # learning rate
+  learning_rate: &lr 1.0e-4  # 5.0e-4
+  min_learning_rate: 1.0e-6
+
+  # epoch
+  max_epochs_fs: 3  # 3, 10
+  max_epochs_proto: 50  # 50
+  max_epochs_few_shot: 30
+  max_epochs_ft: 30
+  max_epochs: 100  # 50
+  max_epochs_probe: 20
+  max_epochs_adaptor: 50
+
+  # training
+  train_with_dev: false
+  shuffle: true
+
+  # evaluating
+  eval_on_train_fraction: 0.0  # if set to "dev", means use dev split size
+  eval_on_train_shuffle: false
+  main_evaluation_metric: "accuracy"
+  use_final_model_for_eval: false
+
+  # anneal
+  anneal_with_restarts: false
+  anneal_with_prestarts: false
+  anneal_against_dev_loss: false
+
+  # data
+  num_workers: 0
+
+  # optimizer
+  optimizer:
+    name: "Adam"
+    lr: *lr
+    lr_fs: 5.0e-5                 # 5.0e-5, 1.0e-4
+    lr_proto: 5.0e-5              # 5.0e-5
+    lr_probe: 1.0e-4
+    lr_adaptor: 1.0e-4
+    weight_decay: 1.0e-6
+    weight_decay_fs: 0.0
+    weight_decay_mapping: 1.0e-6  # 1.0e-6
+    weight_decay_proto: 1.0e-4    # 1.0e-6
+    weight_decay_probe: 1.0e-6    # 1.0e-6
+    weight_decay_adaptor: 1.0e-6
+    momentum: 0.9
+    beta1: 0.9
+    beta2: 0.999
+
+  # scheduler
+  scheduler:
+    name: "OneCycleLR"  # "OneCycleLR", "LinearSchedulerWithWarmup"
+    name_fs: "LinearSchedulerWithWarmup"
+    cycle_momentum: false
+    warmup_fraction: -1  # 0.1
+    anneal_factor: 0.5
+    patience: 3
+    initial_extra_patience: 0
